@@ -67,7 +67,7 @@ def get_train_test_data(file_X=None, file_y=None, k=None, b=None, train_rate=0.8
 def all_process(xgboost=False, AAAI=False, gbdt=False, X_train=None, X_test=None, y_train=None, y_test=None,
                 pri_bud=1, internal_rate=0.5, lap1_rate=0.5, tree=50, k=None, b=None, binary_classification=False):
     """
-    训练树
+   
     :param xgboost: Scheme of this paper
     :param AAAI: Recurring AAAI
     :param gbdt: Recurring GBDT
@@ -107,7 +107,7 @@ def all_process(xgboost=False, AAAI=False, gbdt=False, X_train=None, X_test=None
         print('Privacy protection gbdt: 50% off training time per round (average per tree)：{}'.format((time_gbdt_aft - time_gbdt_pre)/tree))
     y_pred = model.predict(X_test)
 
-    # 二分类
+    
     if binary_classification is True:
         for i in range(len(y_pred)):
             if y_pred[i] > 0:
@@ -118,7 +118,7 @@ def all_process(xgboost=False, AAAI=False, gbdt=False, X_train=None, X_test=None
         print('\033[0;32m privacy budget is  {} to test error：{}\033[0m'.format(pri_bud, error_rate))
         return error_rate, del_samples_rate
 
-    # 回归
+    
     for i in range(len(y_pred)):
         y_pred[i] = k * y_pred[i] + b
     rmse = mean_squared_error(y_pred, y_test) ** 0.5
@@ -150,7 +150,7 @@ def no_privacy_process(file_x=None, file_y=None, tree=50, binary_classification=
         print('\033[0;32mTest error without differential privacy：{}\033[0m'.format(error_rate))
         return error_rate
 
-    # 回归
+   
     rmse = mean_squared_error(y_pred, y_test) ** 0.5
     mae = mean_absolute_error(y_pred, y_test)
     print('\033[0;32m mae of no differnetial privacy：{}\033[0m'.format(rmse))
@@ -268,7 +268,6 @@ def continue_to_dispersed(dataset_X):
 def run_experiment(core_str=None, xgb=False, AAAI=False, Gbdt=False, Base=False, save_test_result=False,
                    binary_cla=False, k=None, b=None, all_tree=50, internal_rate=0.1, kFold=False, pri_list=None):
     """
-
     :param core_str: dataset
     :param xgb: Whether to execute XGB experiment, default execution
     :param AAAI: Whether to repeat AAAI experiment, default not to execute
